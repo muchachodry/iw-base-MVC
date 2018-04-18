@@ -2,6 +2,8 @@ package es.ucm.fdi.iw.controller;
 
 import java.security.Principal;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,6 +31,14 @@ public class RootController {
 	public String login() {
 		return "login";
 	}
+
+	@GetMapping("/chat")
+	public String chat(Model model, HttpServletRequest request) {
+		model.addAttribute("endpoint", request.getRequestURL().toString()
+				.replaceFirst("[^:]*", "ws")
+				.replace("chat", "chatsocket"));
+		return "chat";
+	}	
 	
 	@GetMapping("/logout")
 	public String logout() {
